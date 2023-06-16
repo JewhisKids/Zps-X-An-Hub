@@ -1,0 +1,99 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib(" Zps X An | Siu Piece", "LightTheme")
+local Tab = Window:NewTab("Main")
+local Section = Tab:NewSection("Farm")
+
+local Weaponlist = {}
+local Weapon = nil
+
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+    table.insert(Weaponlist,v.Name)
+end
+ 
+Section:NewDropdown("Select Weapon", " ", Weaponlist, function(currentOption)
+    Weapon = currentOption
+end)
+ 
+Section:NewToggle("Auto Equip", " ", function(a)
+AutoEquiped = a
+end)
+ 
+spawn(function()
+while wait() do
+if AutoEquiped then
+pcall(function()
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
+end)
+end
+end
+end)
+
+Section:NewToggle("Automatic Farm Lv 1 - Max ", " ", function(b)
+AQ243 = b
+end)
+
+spawn(function()
+while wait() do
+if AQ243 then
+pcall(function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1245.58667, 48.6528511, 3060.19922, 0.967069149, 0, 0.25451377, 0, 1, 0, -0.25451377, 0, 0.967069149)
+end)
+end
+end
+end)
+
+
+Section:NewToggle("Fast Attack Combat", " ", function(b)
+FAC = b
+end)
+
+spawn(function()
+while wait() do
+if FAC then
+pcall(function()
+local args = {
+    [1] = "L"
+}
+game:GetService("Players").LocalPlayer.Character.Combat.LocalScript.RemoteEvent:FireServer(unpack(args))
+local args = {
+    [1] = "R"
+}
+game:GetService("Players").LocalPlayer.Character.Combat.LocalScript.RemoteEvent:FireServer(unpack(args))
+end)
+end
+end
+end)
+
+local ShitTab = Window:NewTab("Some Function")
+local ShitSection = ShitTab:NewSection("SF")
+
+ShitSection:NewSlider("Speed", "nothing", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+ShitSection:NewButton("Inf Yield", "Inf Yield Script", function()
+    print("Alr Loaded")
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+ShitSection:NewButton("Lua Hub", "Lua Script", function()
+    print("Alr Loaded")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TranPhatAn/AnHub/main/luahub.lua"))()
+end)
+
+
+ShitSection:NewToggle("Anti Afk", " ", function(s) -- 500 (MaxValue) | 0 (MinValue)
+    afks = s
+end)
+
+spawn(function()
+while wait() do
+if afks then
+pcall(function()
+for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
+    v:Disable()
+end
+end)
+end
+end
+end)
